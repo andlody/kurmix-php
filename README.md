@@ -1,2 +1,8 @@
-# kurmix-php
-Kurmix PHP: Desarrollo de aplicaciones web en el lenguaje PHP.
+# Kurmix Framework PHP
+
+     _  __   www.kurmix.org   _      
+    | |/ /   _ _ __ _ __ ___ (_)_  __
+    | ' / | | | '__| '_ ` _ \| \ \/ /
+    | . \ |_| | |  | | | | | | |>  < 
+    |_|\_\__,_|_|  |_| |_| |_|_/_/\_\    
+
