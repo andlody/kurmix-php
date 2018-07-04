@@ -1,0 +1,92 @@
+html{
+    background: transparent url(../img/page-bg-texture.png) repeat scroll left top;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background: transparent url(../img/page-bg.png) repeat-x scroll left top;
+}
+.kurbody{
+    width: 962px;
+    padding: 0;
+    background: #f4f4f4;
+    border: 1px solid #b3b3b3;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 5px 12px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 5px 12px rgba(0, 0, 0, .2);
+    -ms-box-shadow: 0 5px 12px rgba(0, 0, 0, .2);
+    -o-box-shadow: 0 5px 12px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, .2);
+}
+#kur-header{
+    background: #cccccc url(../img/esmeralda.png) no-repeat center center;
+    height: 111px;
+    width: 960px;
+    border-radius: 10px 10px 0 0;
+}
+
+footer{
+        border-top: 1px solid #d0d0d0;
+        padding: 5px 5px 0 5px;
+}
+a{
+    color: #151515;
+}
+
+a:hover, a:focus {
+    color: #878f96;
+}
+
+.kur-nav{
+    background: url(../img/navigation-bg.png) repeat-x;
+    margin-left:0px; 
+    width: 960px;
+}
+
+.navbar-nav > li > a {
+    padding-top: 2px;
+    padding-bottom: 6px; 
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: transparent;
+}
+
+.panel , .thumbnail{
+    border: 1px solid #9ec83a;
+}
+
+.alert-warning {
+    background-color: #fff2b0;
+    border-color: #ffac00;
+}
+
+.kur-search{
+        background: #ffffff54;
+    float: right;
+    width: 215px;
+    height: 55px;
+    border-radius: 0 10px 0 10px;
+    padding: 10px;
+}
+.img-kur-logo{
+    max-width: 100px;
+    margin-top: -70px;
+    border: 3px solid #fff;
+    background: #041300;
+    background: -webkit-linear-gradient(left, #041300 , #266102);
+    background: -o-linear-gradient(right, #041300, #266102);
+    background: -moz-linear-gradient(right, #041300, #266102);
+    background: linear-gradient(to right, #041300 , #266102)
+    padding: 10px;
+}
+.logo-lenguaje{
+    background: url(../img/greenland.jpg);
+    background-size: 100% 110px;
+    width: 100%;
+    height: 100px;
+}
