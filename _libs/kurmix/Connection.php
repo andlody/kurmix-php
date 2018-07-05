@@ -8,7 +8,7 @@
 class Connection
 {	
 
-	function start(){
+	static function start(){
 		switch (Config::TYPE) {
 			case 1:
 				$aux = 'mysql'.':host='.Config::HOST.';port='.Config::PORT.';dbname='.Config::DATABASE;
@@ -16,14 +16,14 @@ class Connection
 		}
 
 		try {
-            $con = new PDO($aux, Config::USER,Config::PASS);
+            $con = new PDO($aux, Config::USER,Config::PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
             return $con;
         }catch(PDOException $e){
         	Controller::setKurmix("",array(306,$aux,$e->getMessage()));
         }
 	}
 
-	function query($sql) {  
+	static function query($sql) {  
 		$con = Connection::start();
 
 		$stmt = $con->prepare($sql);              
@@ -34,21 +34,20 @@ class Connection
     		Controller::setKurmix("",array(301,$sql,$error[2]));
     	}
 
-        $list = null;
-        $i=0;
-        while( $row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $list = array();
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        for($i=0;$i<sizeof($row);$i++){
         	$j=0;
-        	foreach ($row as $v) {
+        	foreach ($row[$i] as $v) {
     			$list[$i][$j]=$v;
     			$j++;
 			}
-        	$i++;
     	}
     	$con=null;
         return $list;
 	}
 
-	function getTable($sql) {
+	static function getTable($sql) {
 		$con = Connection::start();
 
 		$stmt = $con->prepare($sql);              
@@ -59,16 +58,15 @@ class Connection
     		Controller::setKurmix("",array(301,$sql,$error[2]));
     	}
 
-        $list = null;
-        $i=0;
-        while( $row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        	$j=0;
-        	foreach ($row as $v) {
+        $list = array();
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        for($i=0;$i<sizeof($row);$i++){
+            $j=0;
+        	foreach ($row[$i] as $v) {
     			$list[$i][$j]=$v;
     			$j++;
-    			if($i==0) $names = array_keys($row);
+    			if($i==0) $names = array_keys($row[$i]);
 			}
-        	$i++;
     	}
     	$con=null;
         
