@@ -11,14 +11,24 @@ class Data
     protected $objx;
     protected $objy;
 
+    function __construct(){
+        $this->obj = null;
+        $this->objx = array();
+        $this->objy = array();
+    }
+
     function get($val=null){
         if($val===null) 
             return $this->obj;
         else{
-            if(is_int($val))
+            if(is_int($val)){
+                if(!array_key_exists($val, $this->objy)) return null; 
                 return $this->objy[$val];
-            else
+            }
+            else{
+                if(!array_key_exists($val, $this->objx)) return null; 
                 return $this->objx[$val];
+            }
         }
     }
     

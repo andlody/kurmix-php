@@ -10,8 +10,11 @@ class Controller {
 	protected $vista;
 	protected $band;
 	
-    function __construct(){
-        $this->reqres = new ReqRes();
+    function __construct($rqrs=null){
+    	if($rqrs==null)
+        	$this->reqres = new ReqRes();
+        else
+        	$this->reqres = $rqrs;
         $this->band = true;
     }
 
@@ -22,7 +25,8 @@ class Controller {
 	function after(){}
 	function finish(){}
     
-    function setKurmix($view,$a = null){
+    function setKurmix($view,$a = null,$b=null){
+    	if($b!=null) return $this->reqres;
     	if($a!=null){
     		ReqRes::error($a);
     		return;

@@ -53,7 +53,7 @@ class Router
         	$controler->start();
         else{
         	require ('app/controller/index_controller.php');
-			$controler2 = new index_controller();
+			$controler2 = new index_controller($controler->setKurmix(1,1,1));
 			$controler2->start();
         }
 
