@@ -5,7 +5,7 @@
 * @license   The MIT license                        | . \ |_| | |  | | | | | | |>  < 
 * @version   1.0.0                                  |_|\_\__,_|_|  |_| |_| |_|_/_/\_\       */
 
-class Controller {
+class Controller {hh
 		
 	protected $vista;
 	protected $band;
