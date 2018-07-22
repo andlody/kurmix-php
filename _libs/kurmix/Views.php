@@ -29,6 +29,10 @@ class Views {
 
     function setKurmix($val){
             $this->body="app/view/".$val.".php";
+            if(!file_exists($this->body)){
+                Controller::setKurmix("",array(402,$this->body)); return;
+            }
+
             $a = explode("/", $val);
             
             if(sizeof($a)<2){

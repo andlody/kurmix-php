@@ -94,12 +94,15 @@ class ReqRes{
             case 301:
                 ReqRes::write("ERROR: En el modelo, al realizar la consulta:<strong> ".$a[1]." </strong>.<br>".$a[2]."<br>");
                 break;
-            case 401:
-                ReqRes::write("ERROR: En la vista, Template:<strong> ".$a[1]." </strong> | Vista: <strong>".$a[2]."</strong><br>");
-                break;
             case 306:
                 ReqRes::write("ERROR: En el modelo al llamar:<strong> ".$a[1]."</strong><br>".$a[2]."<br>");
                 break;
+            case 401:
+                ReqRes::write("ERROR: En la vista, Template:<strong> ".$a[1]." </strong> | Vista: <strong>".$a[2]."</strong><br>");
+                break;
+            case 402:
+                ReqRes::write("ERROR: En la vista, al llamar a: <strong> ".$a[1]." </strong> - Posiblemente no existe la vista.<br>");
+                break;            
  		}
  		die();
  	}
