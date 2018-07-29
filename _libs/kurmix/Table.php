@@ -5,44 +5,65 @@
 * @license   The MIT license                        | . \ |_| | |  | | | | | | |>  < 
 * @version   1.0.0                                  |_|\_\__,_|_|  |_| |_| |_|_/_/\_\       */
 
+require_once 'ActiveRecord.php'; 
+
 class Table {
-	protected $columnNames;
-    protected $content;
-    
-    public function table($columnNames=null){
-        $this->columnNames = $columnNames;
-        $this->content = Array();
+    protected $table_name;
+    protected $class_name;
+    protected $table;
+    protected $data;
+
+    function __construct($data=null){
+        if($data==null)
+            $this->data=new Data();
+        else
+            $this->data=$data;
     }
 
-    public function add($row){      
-        $this->content[sizeof($this->content)] = $row;        
+    function setTable($class_name,$value){
+        $this->class_name = $class_name;
+        $this->table_name = $value;
+        $this->table = ActiveRecord::map($this->table_name);
     }
 
-    public function setContent($content){
-    	$this->content = $content;
+    function getTableArray(){
+        return $this->table;
     }
 
-    public function get($row = null,$column = null){  
-    	if($row === null && $column === null) return $this->content;
-
-    	if($column===null) return $this->content[$row];
-
-    	if(is_int($column)) return $this->content[$row][$column];
-
-    	$col = -1;
-        for ($i = 0; $i < sizeof($this->columnNames); $i++) {
-        	if(strcasecmp($this->columnNames[$i], $column) == 0){
-                $col = $i;break;
-            }
-        }
-        return $this->content[$row][$col];
+    function new($data=null){
+        $table = new Table($data);
+        $table->table_name = $this->table_name;
+        $table->class_name = $this->class_name;
+        $table->table = $this->table;
+        return new $this->class_name(null,$table);
     }
 
-    public function rows(){
-    	return sizeof($this->content);
+    function find($value){
+        $this->data = ActiveRecord::find($this->table_name,$this->table,$value); 
     }
 
-    public function columns(){
-    	return sizeof($this->columnNames);
+    function set($index,$value){
+        $this->data->set($index,$value);
+    }
+
+    function get($index){
+        return $this->data->get($index);
+    }
+
+    function save(){
+        ActiveRecord::save($this->table_name,$this->table,$this->data);
+    }
+
+    function destroy(){
+        ActiveRecord::destroy($this->table_name,$this->table,$this->data);   
+        $this->data = new Data(); 
+    }
+
+    function were($value){
+        return ActiveRecord::were($this->table_name,$this,$value); 
+    }
+
+    function create($value){
+        ActiveRecord::create($this->table_name,$this->table,$value); 
     }
 }

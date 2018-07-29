@@ -7,72 +7,49 @@
 
 class Connection
 {	
-
 	static function start(){
 		switch (Config::TYPE) {
-			case 1:
-				$aux = 'mysql'.':host='.Config::HOST.';port='.Config::PORT.';dbname='.Config::DATABASE;
+			case 1: // MySql
+				$aux = 'mysql'.':host='.Config::HOST.';port='.Config::PORT.';dbname='.Config::DATABASE.';charset=utf8';
 				break;
 		}
 
 		try {
-            $con = new PDO($aux, Config::USER,Config::PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+            $con = new PDO($aux, Config::USER,Config::PASS);
             return $con;
         }catch(PDOException $e){
         	Controller::setKurmix("",array(306,$aux,$e->getMessage()));
         }
 	}
 
-	static function query($sql) {  
-		$con = Connection::start();
+    static function execute($sql,$params=null,$isMap=false){
+        $con = Connection::start();
+        
+        $stmt = $con->prepare($sql);
+        if($params==null)
+            $stmt->execute();
+        else              
+            $stmt->execute($params);
 
-		$stmt = $con->prepare($sql);              
-		$stmt->execute();
-
-		$error = $stmt->errorInfo();
-		if($error[0] != 0){
-    		Controller::setKurmix("",array(301,$sql,$error[2]));
-    	}
-
-        $list = array();
-        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        for($i=0;$i<sizeof($row);$i++){
-        	$j=0;
-        	foreach ($row[$i] as $v) {
-    			$list[$i][$j]=$v;
-    			$j++;
-			}
-    	}
-    	$con=null;
-        return $list;
-	}
-
-	static function getTable($sql) {
-		$con = Connection::start();
-
-		$stmt = $con->prepare($sql);              
-		$stmt->execute();
-
-		$error = $stmt->errorInfo();
-		if($error[0] != 0){
-    		Controller::setKurmix("",array(301,$sql,$error[2]));
-    	}
+        $error = $stmt->errorInfo();
+        if($error[0] != 0){
+            if($isMap){
+                $con=null;
+                return null;
+            }
+            Controller::setKurmix("",array(301,$sql,$error[2]));
+        }
 
         $list = array();
         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
         for($i=0;$i<sizeof($row);$i++){
             $j=0;
-        	foreach ($row[$i] as $v) {
-    			$list[$i][$j]=$v;
-    			$j++;
-    			if($i==0) $names = array_keys($row[$i]);
-			}
-    	}
-    	$con=null;
-        
-		require_once('_libs/kurmix/Table.php');
-		$table = new Table($names);
-		$table->setContent($list);
-		return $table;
-	}
+            foreach ($row[$i] as $v) {
+                $list[$i][$j]=$v;
+                $j++;
+            }
+        }
+        $con=null;
+        return $list;   
+    }
 }

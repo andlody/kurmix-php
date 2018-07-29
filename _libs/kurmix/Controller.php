@@ -17,9 +17,7 @@ class Controller {
         	$this->reqres = $rqrs;
         $this->band = true;
     }
-
-	function index(){}
-
+    
 	function start(){}
 	function before(){}
 	function after(){}
@@ -73,19 +71,23 @@ class Controller {
 			Controller::setKurmix("",array(201,$model));
 		}
 		require ('app/model/'.$model.'.php');
-		return new $model();
+		return new $model($model);
 	}
 
 	function lib($lib){
 		if (!file_exists ('_libs/kurmix/'.$lib.'.php')){ 
 			Controller::setKurmix("",array(202,$lib));
 		}
-		require ('_libs/kurmix/'.$lib.'.php');
+		require_once('_libs/kurmix/'.$lib.'.php');
 		return new $lib();
 	}
 
 	function set($dat1,$dat2=null){
 		$this->reqres->setData($dat1,$dat2);
+	}
+
+	function get($dat){
+		return $this->reqres->getData($dat);
 	}
 
 	function isNumeric($val){

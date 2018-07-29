@@ -11,10 +11,13 @@ class Data
     protected $objx;
     protected $objy;
 
+    protected $id;
+
     function __construct(){
-        $this->obj = null;
+        $this->obj  = null;        
         $this->objx = array();
         $this->objy = array();
+        $this->id = null;
     }
 
     function get($val=null){
@@ -32,7 +35,7 @@ class Data
         }
     }
     
-    function setData($data1,$data2){
+    function set($data1,$data2){
         if($data2===null) 
             $this->obj = $data1;
         else{
@@ -41,6 +44,15 @@ class Data
             else
                 $this->objx[$data1]=$data2;
         }
+    }
+
+    function getTable(){
+        return $this->objx;
+    }
+
+    function identifier($val=null){
+        if($val===null) return $this->id;
+        $this->id = $val;
     }
 
     function size($val=null){

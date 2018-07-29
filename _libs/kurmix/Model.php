@@ -5,20 +5,81 @@
 * @license   The MIT license                        | . \ |_| | |  | | | | | | |>  < 
 * @version   1.0.0                                  |_|\_\__,_|_|  |_| |_| |_|_/_/\_\       */
 
-require_once 'Connection.php'; 
+require_once 'Connection.php';
+require_once 'Table.php'; 
+
 abstract class Model
 {
-	protected $table;
-	public function query($query){
-		return Connection::query($query);
+    protected $sql;
+    protected $parameter;
+    protected $table;
+    public $name;
+    
+    function __construct($name=null,$table=null){
+        $this->parameter = array();
+        if($name!=null){
+            $this->table = new Table();
+            $this->name = $name;            
+            $this->init();
+            $this->table->setTable($name,$this->name);
+        }else{
+            $this->table = $table;
+        }
     }
 
-	public function table($row = null,$column = null){
-		if($row === null && $column === null) return $this->table;
-		
-		if(is_string($row) && $column === null) {$this->table = Connection::getTable($row); return;}
-		
-		return $this->table->get($row,$column);
+    public function init(){}
+    
+    public function new(){
+        return $this->table->new();
+    }
+
+    public function find($val){
+        $this->table->find($val);       
+    }
+
+    public function set($index,$value){
+        $this->table->set($index,$value);
+    } 
+
+    public function get($index){
+        return $this->table->get($index);
+    }
+
+    public function save(){
+        $this->table->save();
+    }
+
+    public function destroy(){
+        $this->table->destroy();
+    }
+
+    public function were($were){
+        return $this->table->were($were);
+    }
+
+    public function create($value){
+        $this->table->create($value);
+    }    
+
+    public function query($query){
+        return Connection::execute($query);
+    }
+
+    public function prepare($sql){
+        $this->sql = $sql;
+    }
+
+    public function parameter($value){
+        $this->parameter[sizeof($this->parameter)] = $value;
+    }
+
+    public function execute($array=null){
+        $parameter = $this->parameter;
+        if($array!=null)
+            $parameter=$array;
+
+        $this->parameter = array();
+        return Connection::execute($this->sql,$parameter);
     }
 
     public function isNumeric($val){
@@ -34,7 +95,11 @@ abstract class Model
     	return $val;
     }
 
-    function lib($lib){
+    public function lib($lib){
         return Controller::lib($lib);
+    }
+
+    function model(){
+
     }
 } 

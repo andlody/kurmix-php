@@ -66,7 +66,11 @@ class ReqRes{
 	}
 
 	public function setData($data1,$data2=null){
- 		$this->data->setData($data1,$data2);
+ 		$this->data->set($data1,$data2);
+ 	}
+
+ 	public function getData($index){
+ 		return $this->data->get($index);
  	}
 
  	public function json(){
