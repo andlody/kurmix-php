@@ -7,10 +7,10 @@
 		Kurmix es un framewrok backend para desarrollo de aplicaciones web, la estructura de kurmix de un lenguaje de programación a otro es muy similar. Kurmix es de codigo abierto y gratuito.
 	</p>
 	<div class="panel panel-primary text-justify" style="border-left: 2px solid #337ab7;">
-		<div class="panel-body"> <strong>Vista:</strong> <?php echo $v->body ?> </div> 
+		<div class="panel-body"> <strong>Vista:</strong> <?= $v->body ?> </div> 
 	</div>
 	<div class="panel panel-primary text-justify" style="border-left: 2px solid #337ab7;">
-		 <div class="panel-body"> <strong>Controlador / accion: </strong> <?php echo $v->controller."/".$v->action ?> </div> 
+		 <div class="panel-body"> <strong>Controlador / accion: </strong> <?= $v->controller."/".$v->action ?> </div> 
 	</div>
 	<div class="panel panel-primary text-justify" style="border-left: 2px solid #337ab7;">
 		<div class="panel-body"><strong>¿Necesitas un manual? </strong> Ingresa <a target="_blank" href="https://www.kurmix.org/?k=manual">aquí</a> </div> 

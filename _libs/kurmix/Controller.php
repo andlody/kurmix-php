@@ -75,10 +75,10 @@ class Controller {
 	}
 
 	function lib($lib){
-		if (!file_exists ('_libs/kurmix/'.$lib.'.php')){ 
+		if (!file_exists ('_libs/'.$lib.'/index.php')){ 
 			Controller::setKurmix("",array(202,$lib));
 		}
-		require_once('_libs/kurmix/'.$lib.'.php');
+		require_once('_libs/'.$lib.'/index.php');
 		return new $lib();
 	}
 

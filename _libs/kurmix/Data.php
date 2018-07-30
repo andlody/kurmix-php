@@ -63,6 +63,6 @@ class Data
     }
 
     function json(){
-    	return json_encode($this->objx);
+    	return json_encode($this->objx,JSON_UNESCAPED_UNICODE);
     }
 }

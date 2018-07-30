@@ -99,7 +99,11 @@ abstract class Model
         return Controller::lib($lib);
     }
 
-    function model(){
+    public function model($model){
+        return Controller::model($model);
+    }
 
+    public function json(){
+        return $this->table->json();
     }
 } 
