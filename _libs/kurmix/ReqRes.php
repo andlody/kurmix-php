@@ -13,7 +13,6 @@ class ReqRes{
 
 	function __construct(){
 		$this->template='default';
-		//	
 		$this->data=new Data();
 	}
 
@@ -26,7 +25,7 @@ class ReqRes{
             $url = "view/_templates/".$this->template;
         }
 		
-		require("Views.php");
+		require("_libs/kurmix/Views.php");
 		$v = new Views($this->data);
 		
 		//============= Vista php =============

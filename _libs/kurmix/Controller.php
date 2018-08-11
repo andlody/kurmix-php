@@ -22,6 +22,8 @@ class Controller {
 	function before(){}
 	function after(){}
 	function finish(){}
+
+	function _404(){$this->template('_404');}
     
     function setKurmix($view,$a = null,$b=null){
     	if($b!=null) return $this->reqres;
@@ -70,7 +72,7 @@ class Controller {
 		if (!file_exists ('app/model/'.$model.'.php')){ 
 			Controller::setKurmix("",array(201,$model));
 		}
-		require ('app/model/'.$model.'.php');
+		require_once('app/model/'.$model.'.php');
 		return new $model($model);
 	}
 

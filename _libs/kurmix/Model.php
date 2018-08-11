@@ -5,8 +5,8 @@
 * @license   The MIT license                        | . \ |_| | |  | | | | | | |>  < 
 * @version   1.0.0                                  |_|\_\__,_|_|  |_| |_| |_|_/_/\_\       */
 
-require_once 'Connection.php';
-require_once 'Table.php'; 
+require_once '_libs/kurmix/Connection.php';
+require_once '_libs/kurmix/Table.php'; 
 
 abstract class Model
 {
@@ -61,12 +61,17 @@ abstract class Model
         $this->table->create($value);
     }    
 
-    public function query($query){
-        return Connection::execute($query);
+    public function query($query,$array=null){
+        if($array==null)
+            return Connection::execute($query);
+        else
+            return Connection::execute($query,$array);
     }
 
-    public function prepare($sql){
+    public function prepare($sql,$array=null){
         $this->sql = $sql;
+        if($array!=null)
+            return Connection::execute($sql,$array);
     }
 
     public function parameter($value){

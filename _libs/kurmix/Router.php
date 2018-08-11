@@ -9,8 +9,8 @@ class Router
 {
 	static function main()
 	{
-		require 'Controller.php';
-		require 'Model.php';
+		require '_libs/kurmix/Controller.php';
+		require '_libs/kurmix/Model.php';
 		
 		$controller = 'index';
 		$accion = 'index';
@@ -24,8 +24,8 @@ class Router
 		}
 
 		require('app/_config/Config.php');
-		require('ReqRes.php');
-		require("Data.php");	
+		require('_libs/kurmix/ReqRes.php');
+		require("_libs/kurmix/Data.php");	
 
 		if (!file_exists ('app/controller/'.$controller.'_controller.php')) {
 			Controller::setKurmix("",array(103,$controller));

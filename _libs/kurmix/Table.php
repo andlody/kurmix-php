@@ -5,7 +5,7 @@
 * @license   The MIT license                        | . \ |_| | |  | | | | | | |>  < 
 * @version   1.0.0                                  |_|\_\__,_|_|  |_| |_| |_|_/_/\_\       */
 
-require_once 'ActiveRecord.php'; 
+require_once '_libs/kurmix/ActiveRecord.php'; 
 
 class Table {
     protected $table_name;
