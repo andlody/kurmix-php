@@ -40,6 +40,9 @@ class Connection
             Controller::setKurmix("",array(301,$sql,$error[2]));
         }
 
+        $lastId = $con->lastInsertId();
+        if($lastId!="0") return array(array($lastId));
+
         $list = array();
         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
         for($i=0;$i<sizeof($row);$i++){
