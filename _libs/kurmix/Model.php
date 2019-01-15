@@ -19,7 +19,7 @@ abstract class Model
         $this->parameter = array();
         if($name!=null){
             $this->table = new Table();
-            $this->name = $name;            
+            $this->name = Config::PREFIX.$name;            
             $this->init();
             $this->table->setTable($name,$this->name);
         }else{
@@ -58,7 +58,7 @@ abstract class Model
     }
 
     public function create($value){
-        $this->table->create($value);
+        return $this->table->create($value);
     }    
 
     public function query($query,$array=null){

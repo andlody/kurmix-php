@@ -121,6 +121,6 @@ class ActiveRecord
         }
         $column = substr($column, 0, -1);
         $simbol = substr($simbol, 0, -1);
-		Connection::execute("INSERT INTO $name ($column) VALUES ($simbol)",$data);		
+		return Connection::execute("INSERT INTO $name ($column) VALUES ($simbol)",$data)[0][0];		
 	}
 }

@@ -11,9 +11,10 @@ class Config {
 
 	//Base de Datos | type > 1:mysql   2:postgres   3:oracle
 	const TYPE 		= 1;
-	const HOST 		= 'localhost';
-	const PORT 		= '3306';
-	const USER 		= 'root';
-	const PASS 		= '';
-	const DATABASE  = 'kurmix';
+	const HOST 		= "localhost";
+	const PORT 		= "3306";
+	const USER 		= "root";
+	const PASS 		= "";
+	const DATABASE  = "kurmix";
+	const PREFIX  	= "3454_";
 }

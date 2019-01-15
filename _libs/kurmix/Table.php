@@ -64,7 +64,7 @@ class Table {
     }
 
     function create($value){
-        ActiveRecord::create($this->table_name,$this->table,$value); 
+        return ActiveRecord::create($this->table_name,$this->table,$value); 
     }
 
     function json(){
