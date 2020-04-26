@@ -130,5 +130,15 @@ class Controller {
 
     function json(){
     	return $this->reqres->json();
-    } 
+	} 
+	
+	function header($index,$value=null){
+		if($value==null){
+			if(isset(getallheaders()[$index]))
+				return getallheaders()[$index];
+			else
+				return '';
+		}
+    	return $this->reqres->json();
+	}
 }
