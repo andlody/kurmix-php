@@ -32,20 +32,25 @@ class Controller {
     		return;
     	}
     	if($this->band) $this->reqres->setView($view);
-        $this->reqres->show();
-    }
+		$this->reqres->show();
+	}
 
 	function view($view,$temp = ''){
-    	$this->reqres->setView($view);
-    	$this->band = false;
-    	if($temp !== '') $this->template($temp);
-    }
+		$this->reqres->setView($view);
+		$this->band = false;
+		if($temp !== '') $this->template($temp);
+	}
 
-    function template($temp){
-    	$this->reqres->setTemplate($temp);
-    }
+	function template($temp){
+		$this->reqres->setTemplate($temp);
+	}
 
-	function write($value){
+	function write($value, $option = null){
+		if($option!=null){
+			header('Content-Type: application/'.$option);
+			if(is_array($value))
+				$value = json_encode($value);
+		} 
 		$this->reqres->write($value);
 		$this->view(null);
 	}
@@ -64,7 +69,30 @@ class Controller {
 		$_SESSION[$name] = $value;
 	}
 
-	function parameter($name){
+	function cookie($name,$value=null){	
+		if($name===null) {
+			if (isset($_SERVER['HTTP_COOKIE'])) {
+				$cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+				foreach($cookies as $cookie) {
+					$parts = explode('=', $cookie);
+					$namex = trim($parts[0]);
+					setcookie($namex, '', time()-1000);
+					setcookie($namex, '', time()-1000, '/');
+				}
+			}
+			return;
+		}
+		
+		if($value===null) return @$_COOKIE[$name];
+		
+		setcookie($name,$value);
+	}
+
+	function parameter($name,$option=null){
+		if($name==null){
+			if($option=='json')
+				return (object)json_decode(file_get_contents('php://input'), true);
+		}
 		return $this->reqres->getParameter($name);
 	}
 
@@ -73,7 +101,7 @@ class Controller {
 			Controller::setKurmix("",array(201,$model));
 		}
 		require_once('app/model/'.$model.'.php');
-		return new $model($model);
+		return new $model(null,null);
 	}
 
 	function lib($lib){

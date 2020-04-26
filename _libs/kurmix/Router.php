@@ -8,9 +8,11 @@
 class Router 
 {
 	static function main()
-	{
+	{ 
 		require '_libs/kurmix/Controller.php';
 		require '_libs/kurmix/Model.php';
+		date_default_timezone_set("America/Lima");
+		setlocale(LC_TIME, 'spanish');
 		
 		$controller = 'index';
 		$accion = 'index';
@@ -28,7 +30,8 @@ class Router
 		require("_libs/kurmix/Data.php");	
 
 		if (!file_exists ('app/controller/'.$controller.'_controller.php')) {
-			Controller::setKurmix("",array(103,$controller));
+			$obj = new Controller();
+			$obj->setKurmix("",array(103,$controller));
 		}
 		
 		require ('app/controller/'.$controller.'_controller.php');
@@ -36,7 +39,7 @@ class Router
 		$controler = new $controlador_class();
 		
 		if (!method_exists($controler,$accion)){
-			Controller::setKurmix("",array(101,$accion,$controller));
+			$controler->setKurmix("",array(101,$accion,$controller));
 		} 	
 
 		$rf = new ReflectionMethod($controlador_class, $accion);

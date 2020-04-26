@@ -101,7 +101,7 @@ class ActiveRecord
 					$dat->set($table[$i][0],$a[$j][$i]);
 				}
 				$dat->identifier($table[0][0]."='".$a[0][0]."'");
-				$array[$j] = $table_obj->new($dat);
+				$array[$j] = $table_obj->newx($dat);
 			}
 		}
 		return $array;

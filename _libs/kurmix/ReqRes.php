@@ -25,14 +25,15 @@ class ReqRes{
             $url = "view/_templates/".$this->template;
         }
 		
-		require("_libs/kurmix/Views.php");
+		require_once("_libs/kurmix/Views.php");
 		$v = new Views($this->data);
 		
 		//============= Vista php =============
 		if($this->template!=null){$v->setKurmix($this->view); }
 
 		if(!file_exists('app/'.$url.'.php')){
-			Controller::setKurmix("",array(401,$this->template,$this->view)); return;
+			$obj = new Controller();
+			$obj->setKurmix("",array(401,$this->template,$this->view)); return;
 		}
 
         include('app/'.$url.'.php');        
@@ -76,41 +77,41 @@ class ReqRes{
  		return $this->data->json();
  	}
 
- 	public function error($a){
+ 	public static function error($a){
  		if(!Config::DEV) { 			
- 			ReqRes::error404();
+			self::error404();
  		}
-
+		$obj = new Controller();
  		switch ($a[0]) {
  			case 101:
- 				ReqRes::write("ERROR: En el Router, no existe la accion:<strong> ".$a[1]." </strong> en el controlador:<strong> ".$a[2]."</strong><br>");
+ 				$obj->write("ERROR: En el Router, no existe la accion:<strong> ".$a[1]." </strong> en el controlador:<strong> ".$a[2]."</strong><br>");
  				break;
  			case 103:
- 				ReqRes::write("ERROR: En el Router, no existe el controlador:<strong> ".$a[1]."</strong><br>");
+ 				$obj->write("ERROR: En el Router, no existe el controlador:<strong> ".$a[1]."</strong><br>");
  				break;
  			case 201:
-                ReqRes::write("ERROR: En el controlador al instanciar el modelo:<strong> ".$a[1]."</strong> - Posiblemente no existe.<br>");
+                $obj->write("ERROR: En el controlador al instanciar el modelo:<strong> ".$a[1]."</strong> - Posiblemente no existe.<br>");
                 break;
             case 202:
-                ReqRes::write("ERROR: En el controlador al instanciar la libreria:<strong> ".$a[1]."</strong> - Posiblemente no existe.<br>");
+                $obj->write("ERROR: En el controlador al instanciar la libreria:<strong> ".$a[1]."</strong> - Posiblemente no existe.<br>");
                 break;
             case 301:
-                ReqRes::write("ERROR: En el modelo, al realizar la consulta:<strong> ".$a[1]." </strong>.<br>".$a[2]."<br>");
+                $obj->write("ERROR: En el modelo, al realizar la consulta:<strong> ".$a[1]." </strong>.<br>".$a[2]."<br>");
                 break;
             case 306:
-                ReqRes::write("ERROR: En el modelo al llamar:<strong> ".$a[1]."</strong><br>".$a[2]."<br>");
+                $obj->write("ERROR: En el modelo al llamar:<strong> ".$a[1]."</strong><br>".$a[2]."<br>");
                 break;
             case 401:
-                ReqRes::write("ERROR: En la vista, Template:<strong> ".$a[1]." </strong> | Vista: <strong>".$a[2]."</strong><br>");
+            	$obj->write("ERROR: En la vista, Template:<strong> ".$a[1]." </strong> | Vista: <strong>".$a[2]."</strong><br>");
                 break;
             case 402:
-                ReqRes::write("ERROR: En la vista, al llamar a: <strong> ".$a[1]." </strong> - Posiblemente no existe la vista.<br>");
+                $obj->write("ERROR: En la vista, al llamar a: <strong> ".$a[1]." </strong> - Posiblemente no existe la vista.<br>");
                 break;            
  		}
  		die();
  	}
 
- 	public function error404(){
+ 	public static function error404(){
  		$r = new ReqRes();
  		$r->setTemplate(null);
  		$r->setView("_templates/_404");

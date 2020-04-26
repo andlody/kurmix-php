@@ -19,6 +19,10 @@ class Views {
         return $this->data->get($val);
     }
 
+    function set($name,$value){
+        return $this->data->set($name,$value);
+    }
+
     function size($val=null){
         return $this->data->size($val);
     }
@@ -30,13 +34,15 @@ class Views {
     function setKurmix($val){
             $this->body="app/view/".$val.".php";
             if(!file_exists($this->body)){
-                Controller::setKurmix("",array(402,$this->body)); return;
+                $obj = new Controller();
+                $obj->setKurmix("",array(402,$this->body)); return;
             }
 
             $a = explode("/", $val);
             
             if(sizeof($a)<2){
-                Controller::setKurmix("",array(401,"",$val)); return;
+                $obj = new Controller();
+                $obj->setKurmix("",array(401,"",$val)); return;
             }
 
             $this->controller = $a[0];

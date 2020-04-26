@@ -10,7 +10,7 @@ class Connection
 	static function start(){
 		switch (Config::TYPE) {
 			case 1: // MySql
-				$aux = 'mysql'.':host='.Config::HOST.';port='.Config::PORT.';dbname='.Config::DATABASE.';charset=utf8';
+				        $aux = 'mysql'.':host='.Config::HOST.';port='.Config::PORT.';dbname='.Config::DATABASE.';charset=utf8';
 				break;
 		}
 
@@ -18,7 +18,8 @@ class Connection
             $con = new PDO($aux, Config::USER,Config::PASS);
             return $con;
         }catch(PDOException $e){
-        	Controller::setKurmix("",array(306,$aux,$e->getMessage()));
+            $obj = new Controller();
+        	$obj->setKurmix("",array(306,$aux,$e->getMessage()));
         }
 	}
 
@@ -37,7 +38,8 @@ class Connection
                 $con=null;
                 return null;
             }
-            Controller::setKurmix("",array(301,$sql,$error[2]));
+            $obj = new Controller();
+            $obj->setKurmix("",array(301,$sql,$error[2]));
         }
 
         $lastId = $con->lastInsertId();

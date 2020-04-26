@@ -19,7 +19,7 @@ abstract class Model
         $this->parameter = array();
         if($name!=null){
             $this->table = new Table();
-            $this->name = Config::PREFIX.$name;            
+            $this->name = Config::PREFIX.strtolower($name);            
             $this->init();
             $this->table->setTable($name,$this->name);
         }else{
@@ -29,8 +29,8 @@ abstract class Model
 
     public function init(){}
     
-    public function new(){
-        return $this->table->new();
+    public function newx(){
+        return $this->table->newx();
     }
 
     public function find($val){
@@ -61,11 +61,11 @@ abstract class Model
         return $this->table->create($value);
     }    
 
-    public function query($query,$array=null){
+    public function query($query,$array=null,$cnx='default'){
         if($array==null)
-            return Connection::execute($query);
+            return Connection::execute($query,null,false,$cnx);
         else
-            return Connection::execute($query,$array);
+            return Connection::execute($query,$array,false,$cnx);
     }
 
     public function prepare($sql,$array=null){

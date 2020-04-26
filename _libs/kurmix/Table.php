@@ -30,7 +30,7 @@ class Table {
         return $this->table;
     }
 
-    function new($data=null){
+    function newx($data=null){
         $table = new Table($data);
         $table->table_name = $this->table_name;
         $table->class_name = $this->class_name;
